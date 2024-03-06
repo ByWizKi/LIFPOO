@@ -33,6 +33,18 @@ public class CreneauHoraire {
        CreneauHoraire c = (CreneauHoraire) o;
        return (this.jour == c.jour && this.heure == c.heure && this.minuteDebut == c.minuteDebut && this.dureeMinitute == c.dureeMinitute);
     }
+
+    public Object clone (Object o){
+        if (!(o instanceof CreneauHoraire)){
+            return null;
+        }
+        CreneauHoraire c = (CreneauHoraire) o;
+        this.jour = c.jour;
+        this.heure = c.heure;
+        this.minuteDebut = c.minuteDebut;
+        this.dureeMinitute = c.dureeMinitute;
+        return this;
+    }
     
     public void SaisirCreneau(){
         Scanner sc = new Scanner(System.in);
