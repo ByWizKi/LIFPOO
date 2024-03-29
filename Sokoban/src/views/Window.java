@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JFrame;
@@ -39,12 +38,13 @@ public class Window extends JFrame {
     this.setTitle("Sokoban by thiebaud enzo");
 
     // Layout
-    this.setLayout(new BorderLayout());
+    this.setLayout(null);
 
     // Title Window
     this.titleWindow = new JLabel("Sokoban", JLabel.CENTER);
-    this.setFont(FontEnum.WINDOW_TITLE_FONT.getFont());
-    this.setForeground(Color.decode(ColorEnum.PRIMARY.getHexValue()));
+    this.titleWindow.setFont(FontEnum.WINDOW_TITLE_FONT.getFont());
+    this.titleWindow.setForeground(Color.decode(ColorEnum.PRIMARY.getHexValue()));
+
     /*
      * Style
      * 
@@ -52,11 +52,13 @@ public class Window extends JFrame {
      * 
      * 
      */
+    this.titleWindow.setBounds(489, 0, 303, 110);
     this.add(this.titleWindow);
 
     // MenuPanel
     MenuPanel menu = new MenuPanel(this.gameController);
-    menuView = menu;
+    this.menuView = menu;
+    this.menuView.setBounds(43, 122, 300, 500);
     this.add(this.menuView);
 
     // GamePanel

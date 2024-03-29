@@ -5,8 +5,9 @@ import java.awt.GraphicsEnvironment;
 import java.io.InputStream;
 
 public enum FontEnum {
-  WINDOW_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 20),
-  MENU_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 60);
+  WINDOW_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 100),
+  MENU_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 100),
+  MENU_TEXT_FONT("/assets/fonts/RoadRage-Regular.ttf", 64);
 
   private Font font;
 
