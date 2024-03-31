@@ -8,6 +8,7 @@ public class Main {
 
     Window window = new Window();
     window.setVisible(true);
-
+    // Pour avoir le focus du panel sinon il capte pas que l'utilisateur appuie sur une touche
+    window.getGamePanel().requestFocusInWindow();
   }
 }
