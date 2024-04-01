@@ -17,56 +17,71 @@ public class Window extends JFrame {
   private int sizeXWindow;
   private int sizeYWindow;
   private MenuPanel menuView;
-  private GamePanel gamePanel;
+  private GamePanel gameView;
   private GameController gameController;
-  private Game game; // Instance de Game
+  private Game game;
 
   public Window() {
-    // Setup Controller
-    this.gameController = new GameController(this);
-
-    // Création de l'instance de Game
+    // Initialisation du jeu
     this.game = new Game();
 
-    // Properties window
+    // Configuration de la fenêtre
+    configureWindow();
+
+    // Configuration des panels
+    configurePanels();
+
+    // Configuration de la gestion des touches
+    configureKeyHandling();
+
+    // Démarrage du jeu
+    this.game.start();
+
+  }
+
+  private void configureWindow() {
     this.sizeXWindow = 1280;
     this.sizeYWindow = 720;
-
-    // Properties frame
     this.setSize(this.sizeXWindow, this.sizeYWindow);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     this.setResizable(false);
     this.setTitle("Sokoban by thiebaud enzo");
-
-    // Layout
     this.setLayout(null);
 
-    // Title Window
+    // Configuration du titre
     this.titleWindow = new JLabel("Sokoban", JLabel.CENTER);
     this.titleWindow.setFont(FontEnum.WINDOW_TITLE_FONT.getFont());
     this.titleWindow.setForeground(Color.decode(ColorEnum.PRIMARY.getHexValue()));
     this.titleWindow.setBounds(489, 0, 303, 110);
     this.add(this.titleWindow);
+  }
 
-    // MenuPanel
-    this.menuView = new MenuPanel(this.gameController);
+  private void configurePanels() {
+    // Configuration de GamePanel
+    this.gameView = new GamePanel(this.game);
+    this.gameView.setLocation(437, 122);
+    this.gameView.setSize(800, 600);
+    this.gameView.setFocusable(true);
+    this.add(this.gameView);
+
+    // Assurez-vous que GameController est initialisé après GamePanel
+    this.gameController = new GameController(this);
+
+    // Configuration de MenuPanel
+    this.menuView = new MenuPanel(gameController);
     this.menuView.setBounds(43, 122, 300, 500);
     this.add(this.menuView);
+  }
 
-    // GamePanel, maintenant initialisé avec game
-    this.gamePanel = new GamePanel(this.game);
-    this.gamePanel.setLocation(437, 122);
-    this.gamePanel.setSize(800, 500); // Assurez-vous que la taille est définie pour rendre le panel focusable
-    this.gamePanel.setFocusable(true);
-    this.gamePanel.requestFocusInWindow();
-    this.gamePanel.addKeyListener(new KeyAdapter() {
+  private void configureKeyHandling() {
+    this.gameView.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
         handleKeyPress(e);
       }
     });
-    this.add(this.gamePanel);
+    this.gameView.requestFocusInWindow();
   }
 
   private void handleKeyPress(KeyEvent e) {
@@ -83,12 +98,19 @@ public class Window extends JFrame {
       case KeyEvent.VK_RIGHT:
         gameController.moveHero("RIGHT");
         break;
+      case KeyEvent.VK_R:
+        gameController.refreshLevel();
+        break;
     }
-    gamePanel.repaint(); // Redessinez après mouvement
+    gameView.repaint(); // Rafraîchir le panneau après un déplacement
   }
 
   public GamePanel getGamePanel() {
-    return this.gamePanel;
+    return this.gameView;
+  }
+
+  public MenuPanel getMenuPanel() {
+    return this.menuView;
   }
 
   // Peut-être ajouter un getter pour Game si nécessaire

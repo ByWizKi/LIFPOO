@@ -18,12 +18,11 @@ public class GamePanel extends JPanel {
 
   public GamePanel(Game game) {
     // Propriétés du panneau
-    this.sizeXPanel = 800;
+    this.sizeXPanel = 900;
     this.sizeYPanel = 500;
     this.setSize(this.sizeXPanel, this.sizeYPanel);
     this.setLayout(null);
     this.setFocusable(true);
-    this.requestFocusInWindow();
 
     // Référence au jeu
     this.game = game;

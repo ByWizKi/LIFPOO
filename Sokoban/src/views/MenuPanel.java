@@ -22,6 +22,9 @@ public class MenuPanel extends JPanel {
   private JLabel titleMenu;
   private int sizeXPanel;
   private int sizeYPanel;
+  private int level = 1;
+  private int score = 0;
+  private int step = 0;
   private JLabel levelLabel;
   private JLabel scoresLabel;
   private JLabel stepLabel;
@@ -51,19 +54,19 @@ public class MenuPanel extends JPanel {
     this.add(this.titleMenu, constraintsLayout);
 
     // Level Label
-    this.levelLabel = new JLabel("Level : 1", JLabel.CENTER);
+    this.levelLabel = new JLabel("Level :" + this.level, JLabel.CENTER);
     this.levelLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.levelLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.levelLabel, constraintsLayout);
 
     // Scores Label
-    this.scoresLabel = new JLabel("Scores: 0", JLabel.CENTER);
+    this.scoresLabel = new JLabel("Scores: " + this.score, JLabel.CENTER);
     this.scoresLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.scoresLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.scoresLabel, constraintsLayout);
 
     // Step Label
-    this.stepLabel = new JLabel("Step: 0", JLabel.CENTER);
+    this.stepLabel = new JLabel("Step: " + this.step, JLabel.CENTER);
     this.stepLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.stepLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.stepLabel, constraintsLayout);
@@ -80,5 +83,34 @@ public class MenuPanel extends JPanel {
     this.exitButton.setActionCommand("EXIT GAME");
     this.exitButton.addActionListener(listener);
     this.add(this.exitButton, constraintsLayout);
+  }
+
+  public void addStep() {
+    this.step++;
+    this.stepLabel.setText("Step: " + this.step);
+  }
+
+  public void addScore() {
+    this.score += 10;
+    this.scoresLabel.setText("Scores: " + this.score);
+  }
+
+  public void addLevel() {
+    this.level++;
+    this.levelLabel.setText("Level: " + this.level);
+  }
+
+  public void reset() {
+    this.level = 1;
+    this.score = 0;
+    this.step = 0;
+    this.levelLabel.setText("Level: " + this.level);
+    this.scoresLabel.setText("Scores: " + this.score);
+    this.stepLabel.setText("Step: " + this.step);
+  }
+
+  public void resetStep() {
+    this.step = 0;
+    this.stepLabel.setText("Step: " + this.step);
   }
 }
