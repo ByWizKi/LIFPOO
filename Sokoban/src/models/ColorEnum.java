@@ -13,7 +13,17 @@ public enum ColorEnum {
     this.hexValue = hexValue;
   }
 
+  /**
+   * Get the hexadecimal value of the color.
+   *
+   * @return The hexadecimal value of the color.
+   */
   public String getHexValue() {
+    // Returns the hexadecimal value of the color.
+    //
+    // This method returns the hexadecimal value of the color,
+    // which is stored in the private field `hexValue`.
     return hexValue;
   }
+
 }

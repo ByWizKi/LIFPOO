@@ -28,39 +28,67 @@ public class GamePanel extends JPanel {
     this.game = game;
   }
 
-  // function for update game
+  /**
+   * Update the game and redraw the panel to reflect the changes.
+   *
+   * @param  game  the new game to set
+   */
   public void updateGame(Game game) {
+    // Set the new game
     this.game = game;
-    this.repaint(); // Redessiner le panneau pour refléter les changements
+
+    // Redraw the panel to reflect the changes
+    this.repaint();
   }
 
-  // Getter for Game
+  /**
+   * Returns the Game object associated with this GamePanel.
+   *
+   * @return The Game object associated with this GamePanel.
+   */
   public Game getGame() {
+    // Returns the Game object associated with this GamePanel.
     return this.game;
   }
 
-  // function for draw map
+  /**
+   * This function is called by the repaint() method to
+   * paint the contents of the component.
+   *
+   * @param  g  the graphics context for the paint
+   */
   @Override
   protected void paintComponent(Graphics g) {
+    // Call the paintComponent method of the superclass
     super.paintComponent(g);
-    // draw wall
+
+    // Iterate over each wall in the game and draw it
     for (Wall wall : this.game.getWallList()) {
+      // Draw the wall
       wall.draw(g);
     }
-    // draw void cases
+
+    // Iterate over each void object in the game and draw it
     for (Void voidObject : this.game.getVoidList()) {
+      // Draw the void object
       voidObject.draw(g);
     }
-    // draw checkpoints
+
+    // Iterate over each checkpoint in the game and draw it
     for (CheckPoint checkpoint : this.game.getCheckPointList()) {
+      // Draw the checkpoint
       checkpoint.draw(g);
     }
-    // draw heros
+
+    // Iterate over each hero in the game and draw it
     for (Heros heros : this.game.getHerosList()) {
+      // Draw the hero
       heros.draw(g);
     }
-    // draw cases
+
+    // Iterate over each case in the game and draw it
     for (Case caseObject : this.game.getCaseList()) {
+      // Draw the case
       caseObject.draw(g);
     }
   }

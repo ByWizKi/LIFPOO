@@ -7,7 +7,8 @@ import java.io.InputStream;
 public enum FontEnum {
   WINDOW_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 100),
   MENU_TITLE_FONT("/assets/fonts/RoadRage-Regular.ttf", 100),
-  MENU_TEXT_FONT("/assets/fonts/RoadRage-Regular.ttf", 64);
+  MENU_TEXT_FONT("/assets/fonts/RoadRage-Regular.ttf", 64),
+  HELP_WINDOW_FONT("/assets/fonts/RoadRage-Regular.ttf", 25);
 
   private Font font;
 
@@ -27,7 +28,16 @@ public enum FontEnum {
     }
   }
 
+  /**
+   * Get the font associated with this enum constant.
+   *
+   * @return The font associated with this constant.
+   */
   public Font getFont() {
+    /* Returns the font associated with this constant.
+     *
+     * @return The font associated with this constant.
+     */
     return this.font;
   }
 }

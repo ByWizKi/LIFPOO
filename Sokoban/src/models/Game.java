@@ -25,13 +25,28 @@ public class Game {
   private int currentLevelIndex = 0;
   private boolean allLevelsCompleted = false; // Indique si tous les niveaux ont été complétés
 
-  // Méthode pour vérifier si tous les niveaux ont été complétés
+  /**
+   * Indicates whether all levels have been completed.
+   *
+   * @return true if all levels have been completed, false otherwise
+   */
   public boolean areAllLevelsCompleted() {
+    /*
+     * This method returns a boolean value indicating whether all levels have
+     * been completed. It returns the value of the 'allLevelsCompleted' field.
+     */
     return allLevelsCompleted;
   }
 
-  // Méthode pour définir si tous les niveaux ont été complétés
+  /**
+   * Sets the value of the 'allLevelsCompleted' field, indicating whether all
+   * levels have been completed.
+   *
+   * @param allLevelsCompleted the new value of the 'allLevelsCompleted' field.
+   */
   public void setAllLevelsCompleted(boolean allLevelsCompleted) {
+    // Sets the value of the 'allLevelsCompleted' field, indicating whether all
+    // levels have been completed.
     this.allLevelsCompleted = allLevelsCompleted;
   }
 
@@ -54,39 +69,93 @@ public class Game {
   }
 
   /**
-   * Getter for the list of walls in the game.
+   * Returns the list of walls in the game.
    *
    * @return The list of walls.
    */
   public ArrayList<Wall> getWallList() {
-    // Returns the list of walls in the game.
+    // This getter method returns the list of walls in the game.
+    // It provides access to the private field 'wallList'.
+
+    // The 'wallList' field stores all the walls in the game.
+    // Each wall is an instance of the Wall class, which represents a wall in
+    // the game.
+
+    // The walls are used to create the layout of the game map. They define
+    // the boundaries of the map and the obstacles that the heroes of the
+    // game need to navigate around.
+
+    // This method is part of the Game class, which represents the game logic.
+    // It is used to retrieve the list of walls from the game.
+
     return wallList;
   }
 
   /**
-   * Retrieves the list of checkpoints.
+   * Returns the list of checkpoints in the game.
    *
-   * @return the list of checkpoints
+   * @return The list of checkpoints.
    */
   public ArrayList<CheckPoint> getCheckPointList() {
+    // This getter method returns the list of checkpoints in the game.
+    // It provides access to the private field 'checkPointList'.
+
+    // The 'checkPointList' field stores all the checkpoints in the game.
+    // Each checkpoint is an instance of the CheckPoint class, which
+    // represents a location in the game where the heroes can collect points
+    // or items.
+
+    // Checkpoints are used to define the locations in the game where the
+    // heroes can stop and collect points or items. They are typically
+    // represented as green squares in the game.
+
+    // This method is part of the Game class, which represents the game
+    // logic. It is used to retrieve the list of checkpoints from the game.
+
     return checkPointList;
   }
 
   /**
-   * A description of the entire Java function.
+   * Retrieves the list of Void objects.
    *
-   * @return description of return value
+   * @return The list of Void objects. This list is used to represent the
+   *         Voids (empty spaces) in the game map.
    */
   public ArrayList<Void> getVoidList() {
+    // The 'voidList' field stores all the Void objects in the game.
+    // Each Void is an instance of the Void class, which represents an
+    // empty space in the game map.
+
+    // Voids are used to represent the empty spaces in the game map. They
+    // are typically represented as transparent squares in the game.
+
+    // This method is part of the Game class, which represents the game
+    // logic. It is used to retrieve the list of Voids from the game.
+
     return voidList;
   }
 
   /**
    * Retrieve the list of cases.
    *
+   * This method returns the list of cases in the game. It provides access to the
+   * private field 'caseList'.
+   *
    * @return the list of cases
    */
   public ArrayList<Case> getCaseList() {
+    /*
+     * The 'caseList' field stores all the cases in the game.
+     * Each case is an instance of the Case class, which represents a location
+     * in the game where the heroes can collect points or items.
+     *
+     * Cases are used to define the locations in the game where the heroes
+     * can stop and collect points or items. They are typically represented as
+     * green squares in the game.
+     *
+     * This method is part of the Game class, which represents the game logic.
+     * It is used to retrieve the list of cases from the game.
+     */
     return caseList;
   }
 
@@ -221,13 +290,14 @@ public class Game {
    *
    * @param path Path to the map file.
    *
-   * 
+   * @throws IOException If there is an error reading the file.
    */
   public void loadingMap(String path) throws IOException {
     // Read the map file line by line
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
       // Initialize y coordinate to 0
       int y = 0;
+
       // Read each line of the map
       String line;
       while ((line = br.readLine()) != null) {
@@ -235,6 +305,7 @@ public class Game {
         for (int x = 0; x < line.length(); x++) {
           // Get the character at the current position
           char c = line.charAt(x);
+
           // Create the appropriate game object based on the character
           switch (c) {
             // Wall types
@@ -246,12 +317,15 @@ public class Game {
             case 'R':
             case 'Z':
             case 'U':
+              // Create a new wall object and add it to the wall list
               wallList.add(new Wall(x * 100, y * 100, getWallImgPath(c)));
               break;
             // Void types
             case 'v':
             case 'h':
+              // Create a new void object and add it to the void list
               voidList.add(new Void(x * 100, y * 100, "assets/img/void.png"));
+              // If the character is 'h', create a new hero object and add it to the hero list
               if (c == 'h') {
                 herosList.add(new Heros(x * 100, y * 100, "assets/img/mario_right_side.png"));
               }
@@ -259,7 +333,10 @@ public class Game {
             // Case and Check Point types
             case 'c':
             case 'o':
+              // Create a new void object and add it to the void list
               voidList.add(new Void(x * 100, y * 100, "assets/img/void.png"));
+              // Depending on the character, create a new case or check point object and add
+              // it to the respective list
               switch (c) {
                 case 'c':
                   caseList.add(new Case(x * 100, y * 100, "assets/img/case.png"));

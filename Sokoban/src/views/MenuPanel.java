@@ -85,32 +85,74 @@ public class MenuPanel extends JPanel {
     this.add(this.exitButton, constraintsLayout);
   }
 
+  /**
+   * Increases the step counter by 1 and updates the step label.
+   */
   public void addStep() {
+    // Increment the step counter
     this.step++;
+    
+    // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
 
+  /**
+   * Increases the score counter by 10 and updates the scores label.
+   * This method is called when the player completes a level.
+   */
   public void addScore() {
+    // Increment the score counter by 10
     this.score += 10;
+    
+    // Update the scores label with the new score value
     this.scoresLabel.setText("Scores: " + this.score);
   }
 
+  /**
+   * Increases the level counter by 1 and updates the level label.
+   * This method is called when the player completes a level.
+   */
   public void addLevel() {
+    // Increment the level counter by 1
     this.level++;
+    
+    // Update the level label with the new level value
     this.levelLabel.setText("Level: " + this.level);
   }
 
+  /**
+   * Resets the level, score, and step counters and updates the labels.
+   * This method is called when the player starts a new game.
+   */
   public void reset() {
+    // Reset the level counter
     this.level = 1;
+    
+    // Reset the score counter
     this.score = 0;
+    
+    // Reset the step counter
     this.step = 0;
+    
+    // Update the level label with the new level value
     this.levelLabel.setText("Level: " + this.level);
+    
+    // Update the scores label with the new score value
     this.scoresLabel.setText("Scores: " + this.score);
+    
+    // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
 
+  /**
+   * Resets the step counter and updates the step label.
+   * This method is called when the player starts a new game or completes a level.
+   */
   public void resetStep() {
+    // Reset the step counter
     this.step = 0;
+    
+    // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
 }
