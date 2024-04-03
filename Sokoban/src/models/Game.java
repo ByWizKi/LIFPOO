@@ -23,32 +23,7 @@ public class Game {
   private ArrayList<Heros> herosList = new ArrayList<>();
   private ArrayList<String> levelList = new ArrayList<>();
   private int currentLevelIndex = 0;
-  private boolean allLevelsCompleted = false; // Indique si tous les niveaux ont été complétés
-
-  /**
-   * Indicates whether all levels have been completed.
-   *
-   * @return true if all levels have been completed, false otherwise
-   */
-  public boolean areAllLevelsCompleted() {
-    /*
-     * This method returns a boolean value indicating whether all levels have
-     * been completed. It returns the value of the 'allLevelsCompleted' field.
-     */
-    return allLevelsCompleted;
-  }
-
-  /**
-   * Sets the value of the 'allLevelsCompleted' field, indicating whether all
-   * levels have been completed.
-   *
-   * @param allLevelsCompleted the new value of the 'allLevelsCompleted' field.
-   */
-  public void setAllLevelsCompleted(boolean allLevelsCompleted) {
-    // Sets the value of the 'allLevelsCompleted' field, indicating whether all
-    // levels have been completed.
-    this.allLevelsCompleted = allLevelsCompleted;
-  }
+  private boolean allLevelsCompleted = false;
 
   /**
    * Constructor for the Game class. It initializes the game by loading the list
@@ -63,6 +38,19 @@ public class Game {
           .map(Path::toString)
           .sorted()
           .collect(Collectors.toCollection(ArrayList::new));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Starts the game by loading the first level or the current level based on the
+   * index.
+   * 
+   */
+  public void start() {
+    try {
+      loadingMap(levelList.get(currentLevelIndex));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -92,6 +80,26 @@ public class Game {
   }
 
   /**
+   * Retrieves the list of Void objects.
+   *
+   * @return The list of Void objects. This list is used to represent the
+   *         Voids (empty spaces) in the game map.
+   */
+  public ArrayList<Void> getVoidList() {
+    // The 'voidList' field stores all the Void objects in the game.
+    // Each Void is an instance of the Void class, which represents an
+    // empty space in the game map.
+
+    // Voids are used to represent the empty spaces in the game map. They
+    // are typically represented as transparent squares in the game.
+
+    // This method is part of the Game class, which represents the game
+    // logic. It is used to retrieve the list of Voids from the game.
+
+    return voidList;
+  }
+
+  /**
    * Returns the list of checkpoints in the game.
    *
    * @return The list of checkpoints.
@@ -113,26 +121,6 @@ public class Game {
     // logic. It is used to retrieve the list of checkpoints from the game.
 
     return checkPointList;
-  }
-
-  /**
-   * Retrieves the list of Void objects.
-   *
-   * @return The list of Void objects. This list is used to represent the
-   *         Voids (empty spaces) in the game map.
-   */
-  public ArrayList<Void> getVoidList() {
-    // The 'voidList' field stores all the Void objects in the game.
-    // Each Void is an instance of the Void class, which represents an
-    // empty space in the game map.
-
-    // Voids are used to represent the empty spaces in the game map. They
-    // are typically represented as transparent squares in the game.
-
-    // This method is part of the Game class, which represents the game
-    // logic. It is used to retrieve the list of Voids from the game.
-
-    return voidList;
   }
 
   /**
@@ -169,21 +157,46 @@ public class Game {
   }
 
   /**
-   * Retrieves the current level index.
-   *
-   * @return the current level index
-   */
-  public int getCurrentLevelIndex() {
-    return currentLevelIndex;
-  }
-
-  /**
    * 
    *
    * @return description of return value
    */
   public ArrayList<String> getLevelList() {
     return levelList;
+  }
+
+  /**
+   * Indicates whether all levels have been completed.
+   *
+   * @return true if all levels have been completed, false otherwise
+   */
+  public boolean areAllLevelsCompleted() {
+    /*
+     * This method returns a boolean value indicating whether all levels have
+     * been completed. It returns the value of the 'allLevelsCompleted' field.
+     */
+    return allLevelsCompleted;
+  }
+
+  /**
+   * Sets the value of the 'allLevelsCompleted' field, indicating whether all
+   * levels have been completed.
+   *
+   * @param allLevelsCompleted the new value of the 'allLevelsCompleted' field.
+   */
+  public void setAllLevelsCompleted(boolean allLevelsCompleted) {
+    // Sets the value of the 'allLevelsCompleted' field, indicating whether all
+    // levels have been completed.
+    this.allLevelsCompleted = allLevelsCompleted;
+  }
+
+  /**
+   * Retrieves the current level index.
+   *
+   * @return the current level index
+   */
+  public int getCurrentLevelIndex() {
+    return currentLevelIndex;
   }
 
   /**
@@ -195,19 +208,6 @@ public class Game {
   public boolean checkLevelCompletion() {
     return caseList.stream().allMatch(c -> checkPointList.stream()
         .anyMatch(p -> c.getXPosition() == p.getXPosition() && c.getYPosition() == p.getYPosition()));
-  }
-
-  /**
-   * Starts the game by loading the first level or the current level based on the
-   * index.
-   * 
-   */
-  public void start() {
-    try {
-      loadingMap(levelList.get(currentLevelIndex));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   /**

@@ -17,21 +17,19 @@ public class GamePanel extends JPanel {
   private Game game;
 
   public GamePanel(Game game) {
-    // Propriétés du panneau
     this.sizeXPanel = 900;
     this.sizeYPanel = 500;
     this.setSize(this.sizeXPanel, this.sizeYPanel);
     this.setLayout(null);
     this.setFocusable(true);
 
-    // Référence au jeu
     this.game = game;
   }
 
   /**
    * Update the game and redraw the panel to reflect the changes.
    *
-   * @param  game  the new game to set
+   * @param game the new game to set
    */
   public void updateGame(Game game) {
     // Set the new game
@@ -55,7 +53,7 @@ public class GamePanel extends JPanel {
    * This function is called by the repaint() method to
    * paint the contents of the component.
    *
-   * @param  g  the graphics context for the paint
+   * @param g the graphics context for the paint
    */
   @Override
   protected void paintComponent(Graphics g) {

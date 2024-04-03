@@ -41,8 +41,45 @@ public class Window extends JFrame {
   }
 
   /**
+   * Returns the Game instance of this Window.
+   *
+   * @return The Game instance of this Window.
+   */
+  public Game getGame() {
+    // Returns the Game instance of this Window.
+    // This getter is used to get the Game instance of this Window.
+    // It can be used to access the Game of the Window for further manipulation.
+    return this.game;
+  }
+
+  /**
+   * Returns the MenuPanel instance of this Window.
+   *
+   * @return The MenuPanel instance of this Window.
+   */
+  public MenuPanel getMenuPanel() {
+    // Returns the MenuPanel instance of this Window.
+    // This method is used to get the MenuPanel instance of this Window.
+    // It can be used to access the MenuPanel of the Window for further
+    // manipulation.
+    return this.menuView;
+  }
+
+  /**
+   * Returns the GamePanel instance of this Window.
+   *
+   * @return The GamePanel instance.
+   */
+  public GamePanel getGamePanel() {
+    // Returns the GamePanel instance of this Window.
+    // This method is used to get the GamePanel instance of this Window.
+    return this.gameView;
+  }
+
+  /**
    * Configures the window of the game.
-   * It sets the size, default close operation, location, resizability, title, and layout.
+   * It sets the size, default close operation, location, resizability, title, and
+   * layout.
    * Also adds a title label and a help label to the window.
    */
   private void configureWindow() {
@@ -95,18 +132,18 @@ public class Window extends JFrame {
     this.gameView.setLocation(437, 122);
     this.gameView.setSize(800, 500);
     this.gameView.setFocusable(true);
-    
+
     // Add the GamePanel to the window
     this.add(this.gameView);
-    
+
     // Ensure that GameController is initialized after GamePanel
     this.gameController = new GameController(this);
-    
+
     // Configuration de MenuPanel
     // Initialize the MenuPanel and set its bounds
     this.menuView = new MenuPanel(gameController);
     this.menuView.setBounds(43, 122, 300, 500);
-    
+
     // Add the MenuPanel to the window
     this.add(this.menuView);
   }
@@ -115,7 +152,8 @@ public class Window extends JFrame {
    * Configures the key handling for the game window.
    * This method adds a KeyListener to the GamePanel and handles key press events.
    * The key press handler is defined in the handleKeyPress method.
-   * The KeyListener is added to the GamePanel and the GamePanel is set to have focus.
+   * The KeyListener is added to the GamePanel and the GamePanel is set to have
+   * focus.
    */
   private void configureKeyHandling() {
     // Add a KeyListener to the GamePanel to handle key press events
@@ -124,7 +162,7 @@ public class Window extends JFrame {
        * Handles key press events by invoking the handleKeyPress method.
        * This method is called by the KeyListener when a key is pressed.
        *
-       * @param  e  the KeyEvent representing the key press
+       * @param e the KeyEvent representing the key press
        */
       @Override
       public void keyPressed(KeyEvent e) {
@@ -137,10 +175,11 @@ public class Window extends JFrame {
   }
 
   /**
-   * Handles key press events by invoking the appropriate method from GameController.
+   * Handles key press events by invoking the appropriate method from
+   * GameController.
    * This method is called by the KeyListener when a key is pressed.
    * 
-   * @param  e  the KeyEvent representing the key press
+   * @param e the KeyEvent representing the key press
    */
   private void handleKeyPress(KeyEvent e) {
     // Switch based on the key code to determine the appropriate action
@@ -166,44 +205,9 @@ public class Window extends JFrame {
         gameController.refreshLevel();
         break;
     }
-    
+
     // Repaint the game panel after a move
-    gameView.repaint(); 
+    gameView.repaint();
   }
 
-  /**
-   * Returns the GamePanel instance of this Window.
-   *
-   * @return The GamePanel instance.
-   */
-  public GamePanel getGamePanel() {
-    // Returns the GamePanel instance of this Window.
-    // This method is used to get the GamePanel instance of this Window.
-    return this.gameView;
-  }
-
-  /**
-   * Returns the MenuPanel instance of this Window.
-   *
-   * @return The MenuPanel instance of this Window.
-   */
-  public MenuPanel getMenuPanel() {
-    // Returns the MenuPanel instance of this Window.
-    // This method is used to get the MenuPanel instance of this Window.
-    // It can be used to access the MenuPanel of the Window for further manipulation.
-    return this.menuView;
-  }
-
-
-  /**
-   * Returns the Game instance of this Window.
-   *
-   * @return The Game instance of this Window.
-   */
-  public Game getGame() {
-    // Returns the Game instance of this Window.
-    // This getter is used to get the Game instance of this Window.
-    // It can be used to access the Game of the Window for further manipulation.
-    return this.game;
-  }
 }

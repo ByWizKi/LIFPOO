@@ -39,7 +39,7 @@ public class Heros extends GameObject {
   /**
    * Draws the hero image on the screen.
    * 
-   * @param  g  The Graphics object used for drawing.
+   * @param g The Graphics object used for drawing.
    */
   @Override
   public void draw(Graphics g) {
@@ -51,11 +51,11 @@ public class Heros extends GameObject {
   /**
    * Attempts to move the hero by the specified deltas.
    * 
-   * @param  deltaX    the horizontal displacement
-   * @param  deltaY    the vertical displacement
-   * @param  walls     the list of walls to check collision with
-   * @param  cases     the list of cases to check collision with
-   * @return           true if the movement is successful, false otherwise
+   * @param deltaX the horizontal displacement
+   * @param deltaY the vertical displacement
+   * @param walls  the list of walls to check collision with
+   * @param cases  the list of cases to check collision with
+   * @return true if the movement is successful, false otherwise
    */
   public boolean tryMove(int deltaX, int deltaY, ArrayList<Wall> walls, ArrayList<Case> cases) {
     // Calculate the new position
@@ -66,7 +66,7 @@ public class Heros extends GameObject {
     for (Wall wall : walls) {
       // If any collision is detected, movement is blocked
       if (checkCollision(newX, newY, wall)) {
-        return false; 
+        return false;
       }
     }
 
@@ -97,16 +97,18 @@ public class Heros extends GameObject {
   }
 
   /**
-   * Checks if there is a collision between the new position of the hero and a game object.
+   * Checks if there is a collision between the new position of the hero and a
+   * game object.
    *
-   * @param  newX    the x coordinate of the proposed new position
-   * @param  newY    the y coordinate of the proposed new position
-   * @param  object  the game object to check collision with
-   * @return         true if there is a collision, false otherwise
+   * @param newX   the x coordinate of the proposed new position
+   * @param newY   the y coordinate of the proposed new position
+   * @param object the game object to check collision with
+   * @return true if there is a collision, false otherwise
    */
   private boolean checkCollision(int newX, int newY, GameObject object) {
     // Check if the new position of the hero is to the right of the game object
-    // and if the left edge of the hero is to the left of the right edge of the game object
+    // and if the left edge of the hero is to the left of the right edge of the game
+    // object
     // Also check if the new position of the hero is below the game object
     // and if the top edge of the hero is above the bottom edge of the game object
     return (newX < object.getXPosition() + object.getWidth()) &&
@@ -115,43 +117,4 @@ public class Heros extends GameObject {
         (newY + this.getHeight() > object.getYPosition());
   }
 
-  /**
-   * Retrieves the width of the hero's image.
-   *
-   * @return the width of the hero's image in pixels
-   */
-  @Override
-  public int getWidth() {
-    /*
-     * Retrieves the width of the hero's image
-     * using the getWidth() method of the img Image object.
-     * The null argument is used to specify that the Image
-     * is not observer and therefore does not need to be
-     * scaled to fit within the specified dimensions.
-     * The method returns an integer representing the width
-     * of the image in pixels.
-     */
-    return this.img.getWidth(null);
-  }
-
-  /**
-   * Retrieves the height of the hero's image.
-   *
-   * @return the height of the hero's image in pixels
-   */
-  @Override
-  public int getHeight() {
-    /*
-     * Retrieves the height of the hero's image
-     * using the getHeight() method of the img Image object.
-     * The null argument is used to specify that the Image
-     * is not observer and therefore does not need to be
-     * scaled to fit within the specified dimensions.
-     * The method returns an integer representing the height
-     * of the image in pixels.
-     */
-    // Get the height of the hero's image using the img Image object
-    // and return the result
-    return this.img.getHeight(null);
-  }
 }

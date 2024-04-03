@@ -14,7 +14,7 @@ public class Wall extends GameObject {
   /**
    * Draws the Wall object on the screen using the provided Graphics object.
    *
-   * @param  g  The Graphics object used for drawing.
+   * @param g The Graphics object used for drawing.
    */
   @Override
   public void draw(Graphics g) {
@@ -24,37 +24,4 @@ public class Wall extends GameObject {
     // need to be scaled to fit within the specified dimensions.
     g.drawImage(this.img, this.xPosition, this.yPosition, null);
   }
-
-
-  /**
-   * Get the x position of the Wall object.
-   *
-   * @return the x position of the Wall object
-   */
-  @Override
-  public int getXPosition() {
-    /*
-     * Returns the x position of the Wall object.
-     *
-     * @return the x position of the Wall object
-     */
-    return this.xPosition;
-  }
-
-
-  /**
-   * Get the y position of the Wall object.
-   *
-   * @return the y position of the Wall object
-   */
-  @Override
-  public int getYPosition() {
-    /*
-     * Returns the y position of the Wall object.
-     *
-     * @return the y position of the Wall object
-     */
-    return this.yPosition; 
-  }
-
 }
