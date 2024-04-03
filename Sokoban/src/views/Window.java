@@ -112,11 +112,11 @@ public class Window extends JFrame {
 
     // Add a help label to the window
     this.helpGame = new JLabel(
-        "'r' pour recommencer un niveau| fleche haut pour monter| fleche bas pour descendre| fleche droite pour aller à droite| fleche gauche pour aller à gauche",
+        "'r' to restart a level | up arrow to go up | down arrow to go down | right arrow to go right | left arrow to go left",
         JLabel.CENTER);
     this.helpGame.setFont(FontEnum.HELP_WINDOW_FONT.getFont());
     this.helpGame.setForeground(Color.decode(ColorEnum.PRIMARY.getHexValue()));
-    this.helpGame.setBounds(85, 642, 1110, 28);
+    this.helpGame.setBounds(277, 642, 800, 28);
     this.add(this.helpGame);
   }
 

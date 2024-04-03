@@ -39,6 +39,7 @@ public class MenuPanel extends JPanel {
     // Properties frame
     this.setSize(this.sizeXPanel, this.sizeYPanel);
     this.setBackground(Color.decode(ColorEnum.PRIMARY.getHexValue()));
+    this.setBorder(new javax.swing.border.LineBorder(Color.decode(ColorEnum.WHITE.getHexValue()), 5));
 
     // Layout
     this.setLayout(new GridBagLayout());
@@ -54,19 +55,19 @@ public class MenuPanel extends JPanel {
     this.add(this.titleMenu, constraintsLayout);
 
     // Level Label
-    this.levelLabel = new JLabel("Level :" + this.level, JLabel.CENTER);
+    this.levelLabel = new JLabel("Level : " + this.level, JLabel.CENTER);
     this.levelLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.levelLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.levelLabel, constraintsLayout);
 
     // Scores Label
-    this.scoresLabel = new JLabel("Scores: " + this.score, JLabel.CENTER);
+    this.scoresLabel = new JLabel("Scores : " + this.score, JLabel.CENTER);
     this.scoresLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.scoresLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.scoresLabel, constraintsLayout);
 
     // Step Label
-    this.stepLabel = new JLabel("Step: " + this.step, JLabel.CENTER);
+    this.stepLabel = new JLabel("Step : " + this.step, JLabel.CENTER);
     this.stepLabel.setFont(FontEnum.MENU_TEXT_FONT.getFont());
     this.stepLabel.setForeground(Color.decode(ColorEnum.SECONDARY.getHexValue()));
     this.add(this.stepLabel, constraintsLayout);
@@ -91,7 +92,7 @@ public class MenuPanel extends JPanel {
   public void addStep() {
     // Increment the step counter
     this.step++;
-    
+
     // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
@@ -103,7 +104,7 @@ public class MenuPanel extends JPanel {
   public void addScore() {
     // Increment the score counter by 10
     this.score += 10;
-    
+
     // Update the scores label with the new score value
     this.scoresLabel.setText("Scores: " + this.score);
   }
@@ -115,7 +116,7 @@ public class MenuPanel extends JPanel {
   public void addLevel() {
     // Increment the level counter by 1
     this.level++;
-    
+
     // Update the level label with the new level value
     this.levelLabel.setText("Level: " + this.level);
   }
@@ -127,19 +128,19 @@ public class MenuPanel extends JPanel {
   public void reset() {
     // Reset the level counter
     this.level = 1;
-    
+
     // Reset the score counter
     this.score = 0;
-    
+
     // Reset the step counter
     this.step = 0;
-    
+
     // Update the level label with the new level value
     this.levelLabel.setText("Level: " + this.level);
-    
+
     // Update the scores label with the new score value
     this.scoresLabel.setText("Scores: " + this.score);
-    
+
     // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
@@ -151,7 +152,7 @@ public class MenuPanel extends JPanel {
   public void resetStep() {
     // Reset the step counter
     this.step = 0;
-    
+
     // Update the step label with the new step value
     this.stepLabel.setText("Step: " + this.step);
   }
