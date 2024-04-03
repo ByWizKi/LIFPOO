@@ -19,7 +19,7 @@ public class Case extends GameObject {
      * @return true if the movement is successful, false otherwise
      */
     public boolean tryMove(int deltaX, int deltaY, ArrayList<Wall> walls, ArrayList<Case> cases,
-            ArrayList<IceBlock> iceBlockList, String direction) {
+            ArrayList<IceBlock> iceBlockList) {
         // Calculate the new position
         int newX = this.xPosition + deltaX;
         int newY = this.yPosition + deltaY;
@@ -28,6 +28,25 @@ public class Case extends GameObject {
         // If any collision is detected, movement is blocked
         if (isCollision(newX, newY, walls) || isCollisionWithCases(newX, newY, cases)) {
             return false; // Movement blocked due to collision
+        }
+
+        // Check for collisions with ice blocks
+        if (isCollisionWithIce(newX, newY, iceBlockList)) {
+            if(deltaX > 0) {
+                newX += 100;
+            } else if(deltaX < 0) {
+                newX -= 100;
+            }
+
+            if(deltaY > 0) {
+                newY += 100;
+            }
+            else if(deltaY < 0) {
+                newY -= 100;
+            }
+            this.xPosition = newX;
+            this.yPosition = newY;
+            return true;
         }
 
         // If no collision is detected, update the position
@@ -68,6 +87,11 @@ public class Case extends GameObject {
                 .filter(otherCase -> this != otherCase)
                 // Check for collision with other cases
                 .anyMatch(otherCase -> checkCollision(newX, newY, otherCase));
+    }
+
+    private boolean isCollisionWithIce(int newX, int newY, ArrayList<IceBlock> iceBlockList) {
+        return iceBlockList.stream()
+                .anyMatch(iceBlock -> checkCollision(newX, newY, iceBlock));
     }
 
     /**

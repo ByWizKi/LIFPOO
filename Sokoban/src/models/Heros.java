@@ -83,7 +83,7 @@ public class Heros extends GameObject {
     for (Case caseObject : cases) {
       // If any collision is detected, attempt to move the case
       if (checkCollision(newX, newY, caseObject)) {
-        if (!caseObject.tryMove(deltaX, deltaY, walls, cases, ices, direction)) {
+        if (!caseObject.tryMove(deltaX, deltaY, walls, cases, ices)) {
           return false; // Movement blocked due to collision
         }
         break; // Handle only one case at a time
