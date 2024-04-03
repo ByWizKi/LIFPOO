@@ -40,7 +40,8 @@ public class GameController implements ActionListener {
     /**
      * Moves the hero in the specified direction if possible.
      *
-     * @param direction The direction in which to move the hero (UP, DOWN, LEFT, RIGHT).
+     * @param direction The direction in which to move the hero (UP, DOWN, LEFT,
+     *                  RIGHT).
      */
     public void moveHero(String direction) {
         // Get the game panel and the game from the window
@@ -54,26 +55,10 @@ public class GameController implements ActionListener {
             return; // Quitte la méthode sans déplacer le héros
         }
 
-        // Calculate the movement deltas based on the input direction
-        int deltaX = 0, deltaY = 0;
-        switch (direction) {
-            case "UP":
-                deltaY = -100; // Move up by 100 pixels
-                break;
-            case "DOWN":
-                deltaY = 100; // Move down by 100 pixels
-                break;
-            case "LEFT":
-                deltaX = -100; // Move left by 100 pixels
-                break;
-            case "RIGHT":
-                deltaX = 100; // Move right by 100 pixels
-                break;
-        }
-
         // Attempt to move the hero and update the game state if successful
-        if (hero.tryMove(deltaX, deltaY, game.getWallList(), game.getCaseList())) { // Attempt to move the hero
-            updateGameState(); // Update the game state after moving the hero
+        if (hero.tryMove(direction, game.getWallList(), game.getCaseList(), game.getIceBlockList())) { // Attempt to
+                                                                                                       // move the hero
+            this.updateGameState(); // Update the game state after moving the hero
         }
     }
 
@@ -94,10 +79,10 @@ public class GameController implements ActionListener {
         Game game = window.getGamePanel().getGame();
 
         // Redraw the GamePanel to reflect the move
-        window.getGamePanel().repaint();
+        this.window.getGamePanel().repaint();
 
         // Increment the step counter
-        window.getMenuPanel().addStep();
+        this.window.getMenuPanel().addStep();
 
         // Check if the level is completed and if there are more levels to load
         if (game.checkLevelCompletion()) {
@@ -109,8 +94,8 @@ public class GameController implements ActionListener {
                 game.loadNextLevel();
 
                 // Reset the step counter and update the level display
-                window.getMenuPanel().resetStep();
-                window.getMenuPanel().addLevel();
+                this.window.getMenuPanel().resetStep();
+                this.window.getMenuPanel().addLevel();
                 // Increment the score counter
                 window.getMenuPanel().addScore();
 

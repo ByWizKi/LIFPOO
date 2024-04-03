@@ -1,6 +1,5 @@
 package models;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,18 +36,6 @@ public class Heros extends GameObject {
   }
 
   /**
-   * Draws the hero image on the screen.
-   * 
-   * @param g The Graphics object used for drawing.
-   */
-  @Override
-  public void draw(Graphics g) {
-    // Draw the hero image at its current position on the screen.
-    // The null parameter indicates that no image observer is present.
-    g.drawImage(this.img, this.xPosition, this.yPosition, null);
-  }
-
-  /**
    * Attempts to move the hero by the specified deltas.
    * 
    * @param deltaX the horizontal displacement
@@ -57,7 +44,29 @@ public class Heros extends GameObject {
    * @param cases  the list of cases to check collision with
    * @return true if the movement is successful, false otherwise
    */
-  public boolean tryMove(int deltaX, int deltaY, ArrayList<Wall> walls, ArrayList<Case> cases) {
+  public boolean tryMove(String direction, ArrayList<Wall> walls, ArrayList<Case> cases, ArrayList<IceBlock> ices) {
+
+    // Calculate the deltas based on the direction
+    int deltaX = 0;
+    int deltaY = 0;
+    switch (direction) {
+      case "UP":
+        deltaY = -100;
+        break;
+      case "DOWN":
+        deltaY = 100;
+        break;
+      case "LEFT":
+        deltaX = -100;
+        break;
+      case "RIGHT":
+        deltaX = 100;
+        break;
+
+      default:
+        break;
+    }
+
     // Calculate the new position
     int newX = this.xPosition + deltaX;
     int newY = this.yPosition + deltaY;
@@ -74,7 +83,7 @@ public class Heros extends GameObject {
     for (Case caseObject : cases) {
       // If any collision is detected, attempt to move the case
       if (checkCollision(newX, newY, caseObject)) {
-        if (!caseObject.tryMove(deltaX, deltaY, walls, cases)) {
+        if (!caseObject.tryMove(deltaX, deltaY, walls, cases, ices, direction)) {
           return false; // Movement blocked due to collision
         }
         break; // Handle only one case at a time

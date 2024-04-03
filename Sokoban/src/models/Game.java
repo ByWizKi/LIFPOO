@@ -7,19 +7,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.stream.Collectors;
 
 /**
  * Represents the game logic, including the management of game objects and
  * levels.
  */
-public class Game {
+@SuppressWarnings("deprecation")
+public class Game extends Observable {
 
   // Lists to store different types of game objects.
   private ArrayList<Wall> wallList = new ArrayList<>();
   private ArrayList<CheckPoint> checkPointList = new ArrayList<>();
   private ArrayList<Void> voidList = new ArrayList<>();
   private ArrayList<Case> caseList = new ArrayList<>();
+  private ArrayList<IceBlock> iceBlockList = new ArrayList<>();
   private ArrayList<Heros> herosList = new ArrayList<>();
   private ArrayList<String> levelList = new ArrayList<>();
   private int currentLevelIndex = 0;
@@ -147,6 +150,10 @@ public class Game {
     return caseList;
   }
 
+  public ArrayList<IceBlock> getIceBlockList() {
+    return this.iceBlockList;
+  }
+
   /**
    * Returns the list of Heros objects.
    *
@@ -261,6 +268,9 @@ public class Game {
 
     // Clear the list of heroes
     herosList.clear();
+
+    // Clear the list of ice blocks
+    iceBlockList.clear();
   }
 
   /**
@@ -308,6 +318,11 @@ public class Game {
 
           // Create the appropriate game object based on the character
           switch (c) {
+
+            // Ice types
+            case 'i':
+              iceBlockList.add(new IceBlock(x * 100, y * 100, "assets/img/ice_block.png"));
+              break;
             // Wall types
             case 't':
             case 'l':

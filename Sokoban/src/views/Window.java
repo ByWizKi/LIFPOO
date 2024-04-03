@@ -3,6 +3,8 @@ package views;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,9 +12,10 @@ import javax.swing.JLabel;
 import controllers.GameController;
 import models.ColorEnum;
 import models.FontEnum;
-import models.Game; // Assurez-vous d'importer Game
+import models.Game;
 
-public class Window extends JFrame {
+@SuppressWarnings("deprecation")
+public class Window extends JFrame implements Observer {
   private JLabel titleWindow;
   private JLabel helpGame;
   private int sizeXWindow;
@@ -205,9 +208,12 @@ public class Window extends JFrame {
         gameController.refreshLevel();
         break;
     }
-
-    // Repaint the game panel after a move
-    gameView.repaint();
   }
 
+  @Override
+  public void update(Observable o, Object arg) {
+    if (arg instanceof Game) {
+      this.gameView.updateGame((Game) arg);
+    }
+  }
 }

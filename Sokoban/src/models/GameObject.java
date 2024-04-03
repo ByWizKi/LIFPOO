@@ -1,7 +1,7 @@
 package models;
 
-import java.awt.Graphics;
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -19,7 +19,6 @@ abstract class GameObject {
         this.img = new ImageIcon(this.imgPath).getImage();
     }
 
-
     /**
      * Getter for the xPosition field.
      *
@@ -30,17 +29,15 @@ abstract class GameObject {
         return this.xPosition;
     }
 
-
     /**
      * Setter for the xPosition field.
      *
-     * @param  xPosition  the new xPosition of the object
+     * @param xPosition the new xPosition of the object
      */
     public void setXPosition(int xPosition) {
         // Sets the xPosition of the object
         this.xPosition = xPosition;
     }
-
 
     /**
      * Getter for the yPosition field.
@@ -52,21 +49,19 @@ abstract class GameObject {
         return this.yPosition;
     }
 
-
     /**
      * Setter for the yPosition field.
      *
-     * @param  yPosition  the new yPosition of the object
+     * @param yPosition the new yPosition of the object
      */
     public void setYPosition(int yPosition) {
         /*
          * Sets the yPosition of the object.
          *
-         * @param  yPosition  the new yPosition of the object
+         * @param yPosition the new yPosition of the object
          */
         this.yPosition = yPosition;
     }
-
 
     /**
      * Returns the width of the image of the object.
@@ -83,7 +78,6 @@ abstract class GameObject {
         // of the image in pixels.
         return this.img.getWidth(null);
     }
-
 
     /**
      * Returns the height of the image of the object.
@@ -103,5 +97,8 @@ abstract class GameObject {
         return this.img.getHeight(null);
     }
 
-    public abstract void draw(Graphics g);
+    public Image getImage() {
+        return this.img;
+    }
+
 }

@@ -8,6 +8,7 @@ import models.Case;
 import models.CheckPoint;
 import models.Game;
 import models.Heros;
+import models.IceBlock;
 import models.Void;
 import models.Wall;
 
@@ -63,31 +64,40 @@ public class GamePanel extends JPanel {
     // Iterate over each wall in the game and draw it
     for (Wall wall : this.game.getWallList()) {
       // Draw the wall
-      wall.draw(g);
+      // wall.draw(g);
+      g.drawImage(wall.getImage(), wall.getXPosition(), wall.getYPosition(), getFocusCycleRootAncestor());
     }
 
     // Iterate over each void object in the game and draw it
     for (Void voidObject : this.game.getVoidList()) {
       // Draw the void object
-      voidObject.draw(g);
+      g.drawImage(voidObject.getImage(), voidObject.getXPosition(), voidObject.getYPosition(),
+          getFocusCycleRootAncestor());
     }
 
     // Iterate over each checkpoint in the game and draw it
     for (CheckPoint checkpoint : this.game.getCheckPointList()) {
       // Draw the checkpoint
-      checkpoint.draw(g);
+      g.drawImage(checkpoint.getImage(), checkpoint.getXPosition(), checkpoint.getYPosition(),
+          getFocusCycleRootAncestor());
+    }
+
+    // Iterate over each ice block in the game and draw it
+    for (IceBlock iceBlock : this.game.getIceBlockList()) {
+      g.drawImage(iceBlock.getImage(), iceBlock.getXPosition(), iceBlock.getYPosition(), getFocusCycleRootAncestor());
+    }
+    // Iterate over each case in the game and draw it
+    for (Case caseObject : this.game.getCaseList()) {
+      // Draw the case
+      g.drawImage(caseObject.getImage(), caseObject.getXPosition(), caseObject.getYPosition(),
+          getFocusCycleRootAncestor());
     }
 
     // Iterate over each hero in the game and draw it
     for (Heros heros : this.game.getHerosList()) {
       // Draw the hero
-      heros.draw(g);
+      g.drawImage(heros.getImage(), heros.getXPosition(), heros.getYPosition(), getFocusCycleRootAncestor());
     }
 
-    // Iterate over each case in the game and draw it
-    for (Case caseObject : this.game.getCaseList()) {
-      // Draw the case
-      caseObject.draw(g);
-    }
   }
 }
