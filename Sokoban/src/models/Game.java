@@ -318,7 +318,6 @@ public class Game extends Observable {
 
           // Create the appropriate game object based on the character
           switch (c) {
-
             // Ice types
             case 'i':
               iceBlockList.add(new IceBlock(x * 100, y * 100, "assets/img/ice_block.png"));
@@ -342,7 +341,7 @@ public class Game extends Observable {
               voidList.add(new Void(x * 100, y * 100, "assets/img/void.png"));
               // If the character is 'h', create a new hero object and add it to the hero list
               if (c == 'h') {
-                herosList.add(new Heros(x * 100, y * 100, "assets/img/mario_right_side.png"));
+                herosList.add(new Heros(x * 100, y * 100, "assets/img/mario_left_side.png"));
               }
               break;
             // Case and Check Point types

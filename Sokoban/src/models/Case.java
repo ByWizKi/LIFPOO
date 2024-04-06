@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-public class Case extends GameObject {
+public class Case extends DynamicObject {
 
     public Case(int xPosition, int yPosition, String imgPath) {
         super(xPosition, yPosition, imgPath);
@@ -10,40 +10,59 @@ public class Case extends GameObject {
     }
 
     /**
-     * Attempts to move the Case object by the specified deltas.
+     * Attempts to move the Case object by the specified direction.
      *
-     * @param deltaX the horizontal displacement
-     * @param deltaY the vertical displacement
-     * @param walls  the list of walls to check collision with
-     * @param cases  the list of other Cases to check collision with
+     * @param direction the direction in which to move the Case. Valid values are
+     *                  "UP", "DOWN",
+     *                  "LEFT", and "RIGHT".
+     * @param walls     the list of walls to check collision with
+     * @param cases     the list of other Cases to check collision with
+     * @param ices      the list of ice blocks to check collision with
      * @return true if the movement is successful, false otherwise
      */
-    public boolean tryMove(int deltaX, int deltaY, ArrayList<Wall> walls, ArrayList<Case> cases,
-            ArrayList<IceBlock> iceBlockList) {
+    @Override
+    public boolean tryMove(String direction, ArrayList<Wall> walls, ArrayList<Case> cases, ArrayList<IceBlock> ices) {
+        // Calculate the deltas based on the direction
+        int deltaX = 0;
+        int deltaY = 0;
+
+        switch (direction) {
+            case "UP":
+                deltaY = -100;
+                break; // Avoid "fall-through"
+            case "DOWN":
+                deltaY = 100;
+                break;
+            case "LEFT":
+                deltaX = -100;
+                break;
+            case "RIGHT":
+                deltaX = 100;
+                break;
+            default:
+                return false; // Handle undefined directions
+        }
+
         // Calculate the new position
         int newX = this.xPosition + deltaX;
         int newY = this.yPosition + deltaY;
 
         // Check for collisions with walls and other Cases
-        // If any collision is detected, movement is blocked
         if (isCollision(newX, newY, walls) || isCollisionWithCases(newX, newY, cases)) {
             return false; // Movement blocked due to collision
         }
 
         // Check for collisions with ice blocks
-        if (isCollisionWithIce(newX, newY, iceBlockList)) {
-            if(deltaX > 0) {
-                newX += 100;
-            } else if(deltaX < 0) {
-                newX -= 100;
+        if (isCollisionWithIce(newX, newY, ices)) {
+            // If collision with ice, "slide" an additional 100 pixels in the same direction
+            newX += (deltaX != 0) ? ((deltaX > 0) ? 100 : -100) : 0;
+            newY += (deltaY != 0) ? ((deltaY > 0) ? 100 : -100) : 0;
+
+            // Ensure slide movement doesn't result in another collision
+            if (isCollision(newX, newY, walls) || isCollisionWithCases(newX, newY, cases)) {
+                return false; // Movement blocked after slide
             }
 
-            if(deltaY > 0) {
-                newY += 100;
-            }
-            else if(deltaY < 0) {
-                newY -= 100;
-            }
             this.xPosition = newX;
             this.yPosition = newY;
             return true;
@@ -52,9 +71,7 @@ public class Case extends GameObject {
         // If no collision is detected, update the position
         this.xPosition = newX;
         this.yPosition = newY;
-
-        // Movement successful
-        return true;
+        return true; // Successful movement
     }
 
     /**
@@ -89,8 +106,19 @@ public class Case extends GameObject {
                 .anyMatch(otherCase -> checkCollision(newX, newY, otherCase));
     }
 
-    private boolean isCollisionWithIce(int newX, int newY, ArrayList<IceBlock> iceBlockList) {
-        return iceBlockList.stream()
+    /**
+     * Checks for collision with any ice block.
+     *
+     * @param newX         the x coordinate of the proposed new position
+     * @param newY         the y coordinate of the proposed new position
+     * @param iceBlockList the list of ice blocks to check collision with
+     * @return true if there is a collision, false otherwise
+     */
+    private boolean isCollisionWithIce(int newX, int newY, ArrayList<IceBlock> ices) {
+        // Iterate over each ice block and check for collision
+        // If any ice block is collided, return true
+        return ices.stream()
+                // Check for collision with each ice block
                 .anyMatch(iceBlock -> checkCollision(newX, newY, iceBlock));
     }
 
@@ -104,18 +132,20 @@ public class Case extends GameObject {
      */
     private boolean checkCollision(int newX, int newY, GameObject object) {
         /*
-         * Check if the proposed new position's x coordinate is less than the object's x
-         * coordinate plus its width
-         * and if the proposed new position's x coordinate plus this object's width is
-         * greater than the object's x coordinate.
-         * Also check if the proposed new position's y coordinate is less than the
-         * object's y coordinate plus its height
-         * and if the proposed new position's y coordinate plus this object's height is
-         * greater than the object's y coordinate.
+         * Checks if the proposed new position collides with the given game object.
+         * This is done by checking if the proposed new position falls within the
+         * boundaries of the object.
          */
-        return (newX < object.getXPosition() + object.getWidth() &&
-                newX + getWidth() > object.getXPosition() &&
-                newY < object.getYPosition() + object.getHeight() &&
-                newY + getHeight() > object.getYPosition());
+        // Check if the proposed new position's x coordinate is within the object's x
+        // range
+        boolean isXInRange = (newX < object.getXPosition() + object.getWidth())
+                && (newX + getWidth() > object.getXPosition());
+        // Check if the proposed new position's y coordinate is within the object's y
+        // range
+        boolean isYInRange = (newY < object.getYPosition() + object.getHeight())
+                && (newY + getHeight() > object.getYPosition());
+
+        // Return true if there is a collision, false otherwise
+        return isXInRange && isYInRange;
     }
 }

@@ -6,15 +6,12 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
-public class Heros extends GameObject {
+public class Heros extends DynamicObject {
   private HashMap<String, Image> heroImages = new HashMap<>();
 
   public Heros(int xPosition, int yPosition, String imgPath) {
     super(xPosition, yPosition, imgPath);
-    // Précharger toutes les images nécessaires
     preloadImages();
-    // Définir l'image initiale
-    this.img = heroImages.get("default");
   }
 
   /**
@@ -24,15 +21,11 @@ public class Heros extends GameObject {
    * directions. Add more directions or states as needed.
    */
   private void preloadImages() {
-    // Load default image
-    heroImages.put("default", new ImageIcon(this.imgPath).getImage());
-
     // Load left image
     heroImages.put("left", new ImageIcon("assets/img/mario_left_side.png").getImage());
 
     // Load right image
     heroImages.put("right", new ImageIcon("assets/img/mario_right_side.png").getImage());
-
   }
 
   /**
@@ -44,6 +37,7 @@ public class Heros extends GameObject {
    * @param cases  the list of cases to check collision with
    * @return true if the movement is successful, false otherwise
    */
+  @Override
   public boolean tryMove(String direction, ArrayList<Wall> walls, ArrayList<Case> cases, ArrayList<IceBlock> ices) {
 
     // Calculate the deltas based on the direction
@@ -83,7 +77,7 @@ public class Heros extends GameObject {
     for (Case caseObject : cases) {
       // If any collision is detected, attempt to move the case
       if (checkCollision(newX, newY, caseObject)) {
-        if (!caseObject.tryMove(deltaX, deltaY, walls, cases, ices)) {
+        if (!caseObject.tryMove(direction, walls, cases, ices)) {
           return false; // Movement blocked due to collision
         }
         break; // Handle only one case at a time

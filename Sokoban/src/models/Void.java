@@ -1,12 +1,7 @@
 package models;
 
-import javax.swing.ImageIcon;
-
-public class Void extends GameObject {
-
+public class Void extends StaticObject {
   public Void(int xPosition, int yPosition, String imgPath) {
     super(xPosition, yPosition, imgPath);
-    this.img = new ImageIcon(this.imgPath).getImage();
   }
-
 }
